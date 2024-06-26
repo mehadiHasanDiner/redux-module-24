@@ -1,12 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './features/counterSlice';
+import Logger from './middleware/Logger';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(Logger),
 });
 
-// প্রথমে আমার একটা স্টোর ক্রিয়েট করা লাগবে, তারপর এটাকে কানেক্ট করা লাগবে রিয়েক্ট এপ্লিকেশনের সাথে (main.tsx)।
-// তারপর আমাকে একটা কাউন্টার বানানো লাগবে ফিচার নামে ফোল্ডারের ভিতর কাউন্টারস্লা্ইস নামে
-// সেই স্লাইসটাকে কানেক্ট করতে হবে স্টোরের সাথে।
+console.log(store.getState());
+
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;
