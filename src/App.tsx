@@ -3,18 +3,23 @@ import {
   increment,
   incrementByValue,
 } from './redux/features/counterSlice';
-import { useAppDispatch, useAppSelector } from './redux/features/hook';
+import { useAppDispatch, useAppSelector } from './redux/hook';
 
 function App() {
   const { count } = useAppSelector((state) => state.counter);
   const dispatch = useAppDispatch();
+
+  let taliArray: number[] = [];
+  for (let i = 5; i <= count; i += 5) {
+    taliArray = [...taliArray, i];
+  }
 
   return (
     <div className="h-screen w-full flex justify-center items-center">
       <div className="flex border border-purple-400 bg-slate-100 p-10 rounded-md">
         <button
           onClick={() => dispatch(increment())}
-          className="px-3 py-2 rounded-md bg-green-500 font-semibold text-white"
+          className="px-3 py-2 rounded-md bg-green-500 font-semibold text-white mx-1"
         >
           Increment
         </button>
@@ -31,6 +36,13 @@ function App() {
         >
           Decrement
         </button>
+        <div className="mx-2 ">
+          {taliArray.map((item) => (
+            <button className="px-3 py-2 rounded-md bg-purple-500 font-semibold text-white m-1">
+              {item}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
